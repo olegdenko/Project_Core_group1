@@ -183,7 +183,7 @@ def sort_folder(path: Path) -> None:
 
 def main(*argv):
     try:
-        path = Path(sys.argv[1])
+        path = Path(sys.argv[0])
         # path = Path("C:\\Testfolder")
         print(f"Папка для сортування ", {path})
     except IndexError:

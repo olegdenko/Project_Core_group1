@@ -14,10 +14,10 @@ import re
 import datetime
 import clean
 
-# from rich import print
-# from rich import box
-# from rich.table import Table
-# from rich.console import Console
+from rich import print
+from rich import box
+from rich.table import Table
+from rich.console import Console
 
 
 #-----------------------------------------
