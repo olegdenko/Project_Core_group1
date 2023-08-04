@@ -12,11 +12,12 @@ import platform  # для clearscrean()
 from RecordBook import AddressBook, Record, Name, Phone, Field, Birthday, PhoneException, BirthdayException
 import re
 import datetime
+import clean
 
-from rich import print
-from rich import box
-from rich.table import Table
-from rich.console import Console
+# from rich import print
+# from rich import box
+# from rich.table import Table
+# from rich.console import Console
 
 
 #-----------------------------------------
@@ -152,7 +153,7 @@ def dec_func_book_pages(func):
 @input_error 
 def run_handler(handler, cmd, prm):
 
-    if cmd in ["add", "phone", "add phone", "del phone", "change phone", "show book", "change birthday", "birthday", "search"]:
+    if cmd in ["add", "phone", "add phone", "del phone", "change phone", "show book", "change birthday", "birthday", "search", "sort"]:
         result = handler(prm)
     elif cmd in ["close", "exit", "good bye"]:
         result = handler("")
@@ -447,6 +448,21 @@ def  func_search(prm):
         if lst_result: return f"[bold green]Search results:[/bold green]\n{s}"
         else: return f"No matches found for {prm[0]}"
     else: return f"Expected 1 arguments, but {count_prm} was given.\nHer's an example >> search Mike"
+
+# =========================================================
+# >> sort    Done
+# функція викликає модул cleanfolder виконує сортування файлів у вказаній папці
+#              example >> sort Testfolder
+#                      >> sort C://Testfolder/testfolder
+#                      >> sort .Testfolder/testfolder
+# =========================================================
+
+def func_sort(prm):
+    if prm[0] == "":
+        return f"[bold yellow]Enter path[/bold yellow]"
+    clean.main(prm)
+    return f"[bold green]Sort {prm} finished:[/bold green]"
+
     
     
 #=========================================================
@@ -513,6 +529,8 @@ def func_help(_):
       example >> [bold blue]change birthday Mike 02.03.1990[/bold blue]
 [bold red]search[/bold red] - виконує пошук інформації по довідковій книзі
       example >> [bold blue]search Mike[/bold blue]
+[bold red]sort[/bold red] - виконує сортування файлів в указаній папці
+      example >> [bold blue]sort folder_name[/bold blue]
 """
     
 
@@ -537,7 +555,7 @@ def get_count_prm(prm: list):
 COMMANDS = ["good bye", "close", "exit",
             "hello", "add", "phone", "show all", "save", "load", 
             "cls", "add phone", "del phone", "change phone", "show book",
-            "change birthday", "birthday", "help", "search"]
+            "change birthday", "birthday", "help", "search","sort"]
 
 OPERATIONS = {"good bye": func_exit, "close": func_exit, "exit": func_exit,
               "hello": func_greeting, 
@@ -554,7 +572,8 @@ OPERATIONS = {"good bye": func_exit, "close": func_exit, "exit": func_exit,
               "change birthday": func_change_birthday,
               "birthday": func_get_day_birthday,
               "help": func_help,
-              "search": func_search}
+              "search": func_search,
+              "sort": func_sort}
 
 if __name__ == "__main__":
     main()
